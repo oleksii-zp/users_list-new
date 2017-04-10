@@ -25,7 +25,7 @@ function addUsers() {
         url: 'https://randomuser.me/api/?nat=us&results=1',
         dataType: 'json',
         success: function(data) {
-            // console.log(data);
+            console.log(data);
             $('.alert-info').remove();
             innerResult(data.results, true);
         }
@@ -116,6 +116,8 @@ function innerResult(path, addToArr) {
         buttonEdit.className = 'btn btn-primary btn-sm';
         buttonEdit.setAttribute('data-toggle', 'modal');
         buttonEdit.setAttribute('data-target', '#myModal');
+        buttonEdit.setAttribute('data-user-id', path[i].id.value);
+        buttonEdit.setAttribute('onclick', 'editUser()');
         buttonEdit.innerHTML = 'Edit <span class="glyphicon glyphicon-pencil"></span>';
         divButtonGroup.appendChild(buttonEdit);
 
@@ -182,6 +184,37 @@ function removeUser() {
     $(trToDelete[0]).remove();
     $(prevTrToDel[0]).remove();
 };
+
+function editUser() {
+  var form = document.getElementById('userForm');
+  form.reset();
+  var button = event.srcElement;
+  var userId = $(button).data('userId');
+  var objectToEdit = arr.forEach(function(item, i) {
+      if (arr[i].id.value === userId) {
+        $('#first').val(capitalizeFirstLetter(arr[i].name.first));
+        $('#last').val(capitalizeFirstLetter(arr[i].name.last));
+        if (arr[i].gender === 'female') {
+          $(':radio[value=female]').prop('checked', true);
+        }
+        else {$(':radio[value=male]').prop('checked', true);}
+        // var someDate = new Date(arr[i].dob);
+        $('#birthday').prop('valueAsDate', new Date(arr[i].dob));
+        $('#username').val(arr[i].login.username);
+        $('#email').val(arr[i].email);
+        $('#location').val(capitalizeFirstLetter(arr[i].location.state));
+        $('#zipcode').val(arr[i].location.postcode);
+        $('#city').val(capitalizeFirstLetter(arr[i].location.city));
+        $('#address').val(capitalizeFirstLetter(arr[i].location.street));
+        $('#phone').val(arr[i].phone);
+        $('#cell').val(arr[i].cell);
+        $('#registered').prop('valueAsDate', new Date(arr[i].registered));
+
+
+      }
+
+});
+}
 
 function countFemale() {
     var numFemale = 0;
