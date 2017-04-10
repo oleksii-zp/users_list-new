@@ -123,6 +123,7 @@ function innerResult(path, addToArr) {
         buttonRemove.type = 'button';
         buttonRemove.className = 'btn btn-danger btn-sm';
         buttonRemove.setAttribute('onclick', 'removeUser()');
+        buttonRemove.setAttribute('data-user-id', path[i].id.value);
         buttonRemove.innerHTML = 'Remove <span class="glyphicon glyphicon-trash"></span>';
         divButtonGroup.appendChild(buttonRemove);
 
@@ -172,7 +173,7 @@ function removeUser() {
     var button = event.srcElement;
     var trToDelete = $(button).closest('.hiddenrow');
     var prevTrToDel = $(trToDelete[0]).prev('.firstrow');
-    var userId = $($($(button).closest('.headinfo')[0]).prev('.idvalue')[0]).text();
+    var userId = $(button).data('userId');
     var objectToDel = arr.forEach(function(item, i) {
         if (arr[i].id.value === userId) {
             arr.splice(i, 1);
