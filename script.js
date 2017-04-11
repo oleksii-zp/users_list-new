@@ -81,11 +81,7 @@ function innerResult(path, addToArr) {
         divInfo.style.display = 'none';
         cell1n.appendChild(divInfo);
 
-        var idValue = document.createElement('div');
-        idValue.className = 'idvalue';
-        idValue.style.display = 'none';
-        idValue.innerHTML = path[i].id.value;
-        divInfo.appendChild(idValue);
+        
 
         var divHeadInfo = document.createElement('div');
         divHeadInfo.className = 'headinfo';
