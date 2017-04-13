@@ -33,13 +33,16 @@
     </div>
     <div id="tableContainer">
         <table id="myTable">
+          <thead>
+
+
           <tr>
             <td class="narrow"></td>
-            <td><input type="text" class="search" name="last" onkeyup="searchBy('last', 1)" placeholder="Filter by..." /></td>
-            <td><input type="text" class="search" name="first" onkeyup="searchBy('first', 2)" placeholder="Filter by..." /></td>
-            <td><input type="text" class="search" name="username" onkeyup="searchBy('username', 3)" placeholder="Filter by..." /></td>
-            <td><input type="text" class="search" name="phone" onkeyup="searchBy('phone', 4)" placeholder="Filter by..." /></td>
-            <td><input type="text" class="search" name="location" onkeyup="searchBy('location', 5)" placeholder="Filter by..." /></td>
+            <td><input type="text" class="search" onkeyup="searchBy()" placeholder="Filter by..." /></td>
+            <td><input type="text" class="search" onkeyup="searchBy()" placeholder="Filter by..." /></td>
+            <td><input type="text" class="search" onkeyup="searchBy()" placeholder="Filter by..." /></td>
+            <td><input type="text" class="search" onkeyup="searchBy()" placeholder="Filter by..." /></td>
+            <td><input type="text" class="search" onkeyup="searchBy()" placeholder="Filter by..." /></td>
             <td class="narrow"></td>
           </tr>
 
@@ -52,7 +55,13 @@
                 <th class="sortable" onclick="sortTable(5)">Location</th>
                 <th></th>
             </tr>
+</thead>
+<tbody id = 'myTbody'>
 
+</tbody>
+<tfoot>
+
+</tfoot>
         </table>
 
     </div>
