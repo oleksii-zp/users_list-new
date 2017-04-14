@@ -36,7 +36,7 @@
           <thead>
 
 
-          <tr>
+          <tr id="filter">
             <td class="narrow"></td>
             <td><input type="text" class="search" onkeyup="searchBy()" placeholder="Filter by..." /></td>
             <td><input type="text" class="search" onkeyup="searchBy()" placeholder="Filter by..." /></td>
@@ -75,7 +75,7 @@
         <h4 class="modal-title">Edit User</h4>
       </div>
       <div class="modal-body">
-        <form id="userForm">
+        <form id="userForm" onsubmit="editUser(); return false">
     <div class="input-group">
       <span class="input-group-addon">First Name</span>
       <input type="text" class="form-control" id="first">
@@ -132,7 +132,7 @@
       <span class="input-group-addon">Thumbnail</span>
       <input type="file" class="form-control" id="thumbnail">
     </div>
-    <button type="submit" class="btn btn-primary">Ok <span class="glyphicon glyphicon-ok"></span></button>
+    <button type="submit" class="btn btn-primary" >Ok <span class="glyphicon glyphicon-ok"></span></button>
   </form>
       </div>
       <div class="modal-footer">

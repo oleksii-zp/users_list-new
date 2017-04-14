@@ -41,35 +41,49 @@ function innerResult(path, addToArr) {
     path.forEach(function(item, i) {
         if (addToArr) {
             arr.push(path[i]);
-            // console.log(arr);
+            console.log(arr);
         }
         // var table = document.getElementById("myTable");
-        var tbody = document.getElementById('myTbody')
-        var row = tbody.insertRow(-1);
-        row.className = 'firstrow';
+        // var tbody = document.getElementById('myTbody');
 
-        var cell1 = row.insertCell(0);
-        var cell2 = row.insertCell(1);
-        var cell3 = row.insertCell(2);
-        var cell4 = row.insertCell(3);
-        var cell5 = row.insertCell(4);
-        var cell6 = row.insertCell(5);
-        var cell7 = row.insertCell(6);
+        // var row = tbody.insertRow(-1);
+        // row.className = 'firstrow';
 
-        var image = document.createElement('img');
-        image.className = 'avatar';
-        image.src = path[i].picture.thumbnail;
-        cell1.appendChild(image);
-        cell2.innerHTML = capitalizeFirstLetter(path[i].name.last);
-        cell3.innerHTML = capitalizeFirstLetter(path[i].name.first);
-        cell4.innerHTML = path[i].login.username;
-        cell5.innerHTML = path[i].phone;
-        cell6.innerHTML = capitalizeFirstLetter(path[i].location.state);
-        var plusMinusImg = document.createElement('div');
-        plusMinusImg.className = 'plMin';
-        plusMinusImg.style.backgroundImage = 'url(./img/plus.png)';
-        cell7.appendChild(plusMinusImg);
+        // row.insertCell(0);
+        // row.insertCell(1);
+        // row.insertCell(2);
+        // row.insertCell(3);
+        // row.insertCell(4);
+        // row.insertCell(5);
+        // row.insertCell(6);
 
+        // var image = document.createElement('img');
+        // image.className = 'avatar';
+        // image.src = path[i].picture.thumbnail;
+        // row.cells[0].appendChild(image);
+        // row.cells[1].innerHTML = capitalizeFirstLetter(path[i].name.last);
+        // row.cells[2].innerHTML = capitalizeFirstLetter(path[i].name.first);
+        // row.cells[3].innerHTML = path[i].login.username;
+        // row.cells[4].innerHTML = path[i].phone;
+        // row.cells[5].innerHTML = capitalizeFirstLetter(path[i].location.state);
+        // var plusMinusImg = document.createElement('div');
+        // plusMinusImg.className = 'plMin';
+        // plusMinusImg.style.backgroundImage = 'url(./img/plus.png)';
+        // row.cells[6].appendChild(plusMinusImg);
+
+        $('#myTbody').append($('<tr>').addClass('firstrow').attr('onclick', 'hideShow()').append($('<td><td><td><td><td><td><td>')));
+        fillRow('.firstrow:last', path, i);
+
+
+// $('#myTbody').append($('<tr>').addClass('hiddenrow').append($('<td>').attr('colspan', 7)));
+//
+// $('.hiddenrow:last').find('td').eq(0).append($('<div>').addClass('divInfo')
+//   .append($('<div>').addClass('headinfo'))
+//   .append($('<div>').addClass('infoBlocks'))
+// );
+
+
+        var tbody = document.getElementById('myTbody');
         var row2 = tbody.insertRow(-1);
         row2.className = 'hiddenrow';
 
@@ -110,7 +124,7 @@ function innerResult(path, addToArr) {
         buttonEdit.setAttribute('data-toggle', 'modal');
         buttonEdit.setAttribute('data-target', '#myModal');
         buttonEdit.setAttribute('data-user-id', path[i].id.value);
-        buttonEdit.setAttribute('onclick', 'editUser()');
+        buttonEdit.setAttribute('onclick', 'openEditForm()');
         buttonEdit.innerHTML = 'Edit <span class="glyphicon glyphicon-pencil"></span>';
         divButtonGroup.appendChild(buttonEdit);
 
@@ -154,14 +168,23 @@ function innerResult(path, addToArr) {
         divFourthBlock.className = 'infoBlock';
         divBlocks.appendChild(divFourthBlock);
         var bigImage = document.createElement('img');
-        bigImage.className = 'avatar';
+        bigImage.className = 'mythumbnail';
         bigImage.src = path[i].picture.large;
         divFourthBlock.appendChild(bigImage);
 
-        row.onclick = function() {
-            hideShow(divInfo, plusMinusImg);
-        };
     });
+}
+
+
+function fillRow(rowToFill, path, i) {
+  $(rowToFill).find('td')
+    .eq(0).append($('<img>').addClass('mythumbnail').attr('src', path[i].picture.thumbnail)).end()
+    .eq(1).append(capitalizeFirstLetter(path[i].name.last)).end()
+    .eq(2).append(capitalizeFirstLetter(path[i].name.first)).end()
+    .eq(3).append(path[i].login.username).end()
+    .eq(4).append(path[i].phone).end()
+    .eq(5).append(capitalizeFirstLetter(path[i].location.state)).end()
+    .eq(6).addClass('plMin').css('backgroundImage', 'url(./img/plus.png)');
 }
 
 function removeUser() {
@@ -178,11 +201,12 @@ function removeUser() {
     $(prevTrToDel[0]).remove();
 };
 
-function editUser() {
+var userId;
+function openEditForm() {
     var form = document.getElementById('userForm');
     form.reset();
     var button = event.srcElement;
-    var userId = $(button).data('userId');
+    userId = $(button).data('userId');
     var objectToEdit = arr.forEach(function(item, i) {
         if (arr[i].id.value === userId) {
             $('#first').val(capitalizeFirstLetter(arr[i].name.first));
@@ -192,7 +216,6 @@ function editUser() {
             } else {
                 $(':radio[value=male]').prop('checked', true);
             }
-            // var someDate = new Date(arr[i].dob);
             $('#birthday').prop('valueAsDate', new Date(arr[i].dob));
             $('#username').val(arr[i].login.username);
             $('#email').val(arr[i].email);
@@ -207,6 +230,10 @@ function editUser() {
         }
 
     });
+}
+
+function editUser() {
+  console.log(userId);
 }
 
 function countFemale() {
@@ -298,15 +325,18 @@ function searchBy() {
     };
 };
 
-function hideShow(div, img) {
-    if (div.style.display == 'none') {
+function hideShow() {
+  var tr = event.currentTarget;
+  var plMin = $(tr).find('.plMin');
+  var divToHide = $(tr).next().find('.divInfo');
+    if (divToHide[0].style.display == 'none') {
         $('.divInfo').slideUp();
         $('.plMin').css('backgroundImage', 'url(./img/plus.png)');
-        $(div).slideDown();
-        $(img).css('backgroundImage', 'url(./img/minus.png)');
+        $(divToHide[0]).slideDown();
+        $(plMin[0]).css('backgroundImage', 'url(./img/minus.png)');
     } else {
-        $(div).slideUp();
-        $(img).css('backgroundImage', 'url(./img/plus.png)');
+        $(divToHide[0]).slideUp();
+        $(plMin[0]).css('backgroundImage', 'url(./img/plus.png)');
     };
 }
 
@@ -364,3 +394,6 @@ function sortTable(n) {
         $(thsort[n - 1]).css('backgroundImage', 'url(./img/sortdesc.png)')
     }
 }
+
+// $('#myTbody').append('<tr class="firstrow" onclick="hideShow()"><td><img class="mythumbnail" src=""></td><td></td><td></td><td></td><td></td><td></td><td class="plMin" style="background-image: url(&quot;./img/plus.png&quot;);"></td></tr>');
+// $('#myTbody').append('<tr class="hiddenrow"><td colspan="7"><div class="divInfo" style="display: none;"><div class="headinfo"><div class="nameandgender"><span class="bigName"></span><img src="" class="gender"></div><div class="btn-group"><div class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" data-user-id="" onclick="openEditForm()">Edit <span class="glyphicon glyphicon-pencil"></span></div><div class="btn btn-danger btn-sm" onclick="removeUser()" data-user-id="">Remove <span class="glyphicon glyphicon-trash"></span></div></div></div><div class="infoBlocks"><div class="infoBlock"><p><span>Username </span><span class="notBold"></span></p><p><span>Registered </span><span class="notBold"></span></p><p><span>Email </span><span class="notBold"></span></p></div><div class="infoBlock"><p><span>Address </span><span class="notBold"></span></p><p><span>City </span><span class="notBold"></span></p><p><span>Zip Code </span><span class="notBold"></span></p></div><div class="infoBlock"><p><span>Birthday </span><span class="notBold"></span></p><p><span>Phone </span><span class="notBold"></span></p><p><span>Cell </span><span class="notBold"></span></p></div><div class="infoBlock"><img class="mythumbnail" src=""></div></div></div></td></tr>');

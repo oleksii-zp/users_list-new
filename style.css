@@ -7,7 +7,7 @@ body {
     font-size: 14px;
     font-weight: bold;
     color: #4f4f4f;
-    width: 100%;
+    /*width: 100%;*/
     background-image: url(./img/bg.jpg);
     background-size: cover;
     background-attachment: fixed;
@@ -102,9 +102,10 @@ body {
     margin: 0 auto;
     min-width: 600px;
     table-layout: fixed;
+
 }
 
-tr.thead {
+tr.thead, #filter {
     height: 40px;
 }
 
@@ -113,12 +114,13 @@ th {
     font-size: 16px;
 }
 
+
 th.sortable {
     background-image: url(./img/sort.png);
     background-position: right;
     background-size: 20px;
     background-repeat: no-repeat;
-    background-position: 95% 50%;
+    background-position: 90% 50%;
 }
 
 th.sortable:hover {
@@ -149,15 +151,16 @@ tr:nth-child(4n+1):hover {
     cursor: pointer;
 }
 
+
 td {
     word-wrap: break-word;
     padding: 0px;
-    /*padding-right: 10px;*/
+    padding-right: 10px;
 }
 
-.firstrow td:nth-child(1) {
+/*.firstrow td:nth-child(1) {
     text-align: center;
-}
+}*/
 
 div.headinfo {
     display: flex;
@@ -177,14 +180,11 @@ span.bigName {
     font-weight: bold;
 }
 
-.avatar {
+.mythumbnail {
     border-radius: 100%;
     border-style: solid;
     border-width: medium;
     border-color: white;
-    /*margin: auto;*/
-    /*margin-left: 5px;*/
-    /*margin-top: 5px;*/
 }
 
 .notBold {
