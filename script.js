@@ -188,7 +188,7 @@ function fillRow(rowToFill, path, i) {
 }
 
 function removeUser() {
-    var button = event.srcElement;
+    var button = event.target;
     var trToDelete = $(button).closest('.hiddenrow');
     var prevTrToDel = $(trToDelete[0]).prev('.firstrow');
     var userId = $(button).data('userId');
@@ -205,7 +205,7 @@ var userId;
 function openEditForm() {
     var form = document.getElementById('userForm');
     form.reset();
-    var button = event.srcElement;
+    var button = event.target;
     userId = $(button).data('userId');
     var objectToEdit = arr.forEach(function(item, i) {
         if (arr[i].id.value === userId) {
@@ -232,29 +232,29 @@ function openEditForm() {
     });
 }
 
-function editUser() {
-  console.log(userId);
-}
+// function editUser() {
+//   console.log(userId);
+// }
 
-function countFemale() {
-    var numFemale = 0;
-    arr.forEach(function(item, i) {
-        if (arr[i].gender === 'female') {
-            numFemale += 1;
-        };
-    })
-    return numFemale;
-};
-
-function countMale() {
-    var numMale = 0;
-    arr.forEach(function(item, i) {
-        if (arr[i].gender === 'male') {
-            numMale += 1;
-        };
-    })
-    return numMale;
-};
+// function countFemale() {
+//     var numFemale = 0;
+//     arr.forEach(function(item, i) {
+//         if (arr[i].gender === 'female') {
+//             numFemale += 1;
+//         };
+//     })
+//     return numFemale;
+// };
+//
+// function countMale() {
+//     var numMale = 0;
+//     arr.forEach(function(item, i) {
+//         if (arr[i].gender === 'male') {
+//             numMale += 1;
+//         };
+//     })
+//     return numMale;
+// };
 
 function capitalizeFirstLetter(someWord) {
     return someWord.charAt(0).toUpperCase() + someWord.slice(1);
@@ -295,18 +295,17 @@ function searchBy() {
         tdIndex,
         filt,
         tr,
+        dataAttr,
+        counter,
         td,
         i;
-    input = event.srcElement;
+    input = event.target;
     tdIndex = $(input).parent().prop('cellIndex');
     filt = input.value.toUpperCase();
     tr = $('tr.firstrow');
     for (i = 0; i < tr.length; i++) {
-        var dataAttr = $(tr[i]).prop('dataset');
-        var counter = 0;
-        for (var key in dataAttr) {
-            counter++;
-        }
+        dataAttr = $(tr[i]).prop('dataset');
+        counter = Object.keys(dataAttr).length;
         td = tr[i].getElementsByTagName("td")[tdIndex];
         if (td.innerHTML.toUpperCase().indexOf(filt) > -1) {
             if (dataAttr[tdIndex] && counter === 1) {
@@ -394,6 +393,3 @@ function sortTable(n) {
         $(thsort[n - 1]).css('backgroundImage', 'url(./img/sortdesc.png)')
     }
 }
-
-// $('#myTbody').append('<tr class="firstrow" onclick="hideShow()"><td><img class="mythumbnail" src=""></td><td></td><td></td><td></td><td></td><td></td><td class="plMin" style="background-image: url(&quot;./img/plus.png&quot;);"></td></tr>');
-// $('#myTbody').append('<tr class="hiddenrow"><td colspan="7"><div class="divInfo" style="display: none;"><div class="headinfo"><div class="nameandgender"><span class="bigName"></span><img src="" class="gender"></div><div class="btn-group"><div class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" data-user-id="" onclick="openEditForm()">Edit <span class="glyphicon glyphicon-pencil"></span></div><div class="btn btn-danger btn-sm" onclick="removeUser()" data-user-id="">Remove <span class="glyphicon glyphicon-trash"></span></div></div></div><div class="infoBlocks"><div class="infoBlock"><p><span>Username </span><span class="notBold"></span></p><p><span>Registered </span><span class="notBold"></span></p><p><span>Email </span><span class="notBold"></span></p></div><div class="infoBlock"><p><span>Address </span><span class="notBold"></span></p><p><span>City </span><span class="notBold"></span></p><p><span>Zip Code </span><span class="notBold"></span></p></div><div class="infoBlock"><p><span>Birthday </span><span class="notBold"></span></p><p><span>Phone </span><span class="notBold"></span></p><p><span>Cell </span><span class="notBold"></span></p></div><div class="infoBlock"><img class="mythumbnail" src=""></div></div></div></td></tr>');
