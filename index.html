@@ -7,15 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title></title>
     <!-- <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"> -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="./style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<script src="./script.js"></script>
-    <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
-    <!-- <script src="./chart.js"></script> -->
+
 </head>
+
 <body>
 
     <!-- <div id="dialog" title="Gender of users">
@@ -23,126 +19,212 @@
     </div>
     <div class="topbar">
         <button id="opener">Show chart</button> -->
-        <!-- <input type="text" id="search" onkeyup="searchByName()" placeholder="Users search" /> -->
+    <!-- <input type="text" id="search" onkeyup="searchByName()" placeholder="Users search" /> -->
     <!-- </div> -->
     <div class="btn-group">
 
 
-    <button type="button" class="btn btn-primary" name="button" onclick="addUsers()">Add users <span class="glyphicon glyphicon-user"></span></button>
-    <button type="button" class="btn btn-primary" name="button" onclick="save()">Save <span class="glyphicon glyphicon-floppy-save"></span></button>
+        <button type="button" class="btn btn-primary" name="button" onclick="addUsers()">Add users <span class="glyphicon glyphicon-user"></span></button>
+        <button type="button" class="btn btn-primary" name="button" onclick="save()">Save <span class="glyphicon glyphicon-floppy-save"></span></button>
     </div>
     <div id="tableContainer">
         <table id="myTable">
-          <thead>
+            <thead>
 
 
-          <tr id="filter">
-            <td class="narrow"></td>
-            <td><input type="text" class="search" onkeyup="searchBy()" placeholder="Filter by..." /></td>
-            <td><input type="text" class="search" onkeyup="searchBy()" placeholder="Filter by..." /></td>
-            <td><input type="text" class="search" onkeyup="searchBy()" placeholder="Filter by..." /></td>
-            <td><input type="text" class="search" onkeyup="searchBy()" placeholder="Filter by..." /></td>
-            <td><input type="text" class="search" onkeyup="searchBy()" placeholder="Filter by..." /></td>
-            <td class="narrow"></td>
-          </tr>
+                <tr id="filter">
+                    <td class="narrow"></td>
+                    <td><input type="text" class="search" onkeyup="searchBy()" placeholder="Filter by..." /></td>
+                    <td><input type="text" class="search" onkeyup="searchBy()" placeholder="Filter by..." /></td>
+                    <td><input type="text" class="search" onkeyup="searchBy()" placeholder="Filter by..." /></td>
+                    <td><input type="text" class="search" onkeyup="searchBy()" placeholder="Filter by..." /></td>
+                    <td><input type="text" class="search" onkeyup="searchBy()" placeholder="Filter by..." /></td>
+                    <td class="narrow"></td>
+                </tr>
 
-            <tr class="thead">
-                <th></th>
-                <th class="sortable" onclick="sortTable(1)">Last</th>
-                <th class="sortable" onclick="sortTable(2)">First</th>
-                <th class="sortable" onclick="sortTable(3)">Username</th>
-                <th class="sortable" onclick="sortTable(4)">Phone</th>
-                <th class="sortable" onclick="sortTable(5)">Location</th>
-                <th></th>
-            </tr>
-</thead>
-<tbody id = 'myTbody'>
+                <tr class="thead">
+                    <th></th>
+                    <th class="sortable" onclick="sortTable(1)">Last</th>
+                    <th class="sortable" onclick="sortTable(2)">First</th>
+                    <th class="sortable" onclick="sortTable(3)">Username</th>
+                    <th class="sortable" onclick="sortTable(4)">Phone</th>
+                    <th class="sortable" onclick="sortTable(5)">Location</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id='myTbody'>
 
-</tbody>
-<tfoot>
+            </tbody>
+            <tfoot>
 
-</tfoot>
+            </tfoot>
         </table>
 
     </div>
 
 
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Edit User</h4>
-      </div>
-      <div class="modal-body">
-        <form id="userForm" onsubmit="editUser(); return false">
-    <div class="input-group">
-      <span class="input-group-addon">First Name</span>
-      <input type="text" class="form-control" id="first">
-    </div>
-    <div class="input-group">
-      <span class="input-group-addon">Last Name</span>
-      <input type="text" class="form-control" id="last">
-    </div>
-    <div class="input-group">
-      <label class="radio-inline"><input type="radio" name="gender" value="male" >Male</label>
-<label class="radio-inline"><input type="radio" name="gender" value="female">Female</label>
-    </div>
-    <div class="input-group">
-      <span class="input-group-addon">Birthday</span>
-      <input type="date" class="form-control" id="birthday">
-    </div>
-    <div class="input-group">
-      <span class="input-group-addon">Username</span>
-      <input type="text" class="form-control" id="username">
-    </div>
-    <div class="input-group">
-      <span class="input-group-addon">Email</span>
-      <input type="email" class="form-control" id="email">
-    </div>
-    <div class="input-group">
-      <span class="input-group-addon">Location</span>
-      <input type="text" class="form-control" id="location">
-    </div>
-    <div class="input-group">
-      <span class="input-group-addon">Zip Code</span>
-      <input type="text" class="form-control" id="zipcode">
-    </div>
-    <div class="input-group">
-      <span class="input-group-addon">City</span>
-      <input type="text" class="form-control" id="city">
-    </div>
-    <div class="input-group">
-<span class="input-group-addon">Address</span>
-      <input type="text" class="form-control" id="address">
-    </div>
-    <div class="input-group">
-      <span class="input-group-addon">Phone</span>
-      <input type="text" class="form-control" id="phone">
-    </div>
-    <div class="input-group">
-      <span class="input-group-addon">Cell</span>
-      <input type="text" class="form-control" id="cell">
-    </div>
-    <div class="input-group">
-      <span class="input-group-addon">Registered</span>
-      <input type="date" class="form-control" id="registered">
-    </div>
-        <div class="input-group">
-      <span class="input-group-addon">Thumbnail</span>
-      <input type="file" class="form-control" id="thumbnail">
-    </div>
-    <button type="submit" class="btn btn-primary" >Ok <span class="glyphicon glyphicon-ok"></span></button>
-  </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-      </div>
-    </div>
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Edit User</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="userForm" onsubmit="editUser(); return false">
+                        <div class="input-group">
+                            <span class="input-group-addon">First Name</span>
+                            <input type="text" class="form-control" id="first">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">Last Name</span>
+                            <input type="text" class="form-control" id="last">
+                        </div>
+                        <div class="input-group">
+                            <label class="radio-inline"><input type="radio" name="gender" value="male" >Male</label>
+                            <label class="radio-inline"><input type="radio" name="gender" value="female">Female</label>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">Birthday</span>
+                            <input type="date" class="form-control" id="birthday">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">Username</span>
+                            <input type="text" class="form-control" id="username">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">Email</span>
+                            <input type="email" class="form-control" id="email">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">Location</span>
+                            <input type="text" class="form-control" id="location">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">Zip Code</span>
+                            <input type="text" class="form-control" id="zipcode">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">City</span>
+                            <input type="text" class="form-control" id="city">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">Address</span>
+                            <input type="text" class="form-control" id="address">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">Phone</span>
+                            <input type="text" class="form-control" id="phone">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">Cell</span>
+                            <input type="text" class="form-control" id="cell">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">Registered</span>
+                            <input type="date" class="form-control" id="registered">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">Thumbnail</span>
+                            <input type="file" class="form-control" id="thumbnail">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Ok <span class="glyphicon glyphicon-ok"></span></button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
 
-  </div>
-</div>
+        </div>
+    </div>
+    <script type="text/template" id="rows-template">
+      <tr class="firstrow" onclick="hideShow()">
+        <td>
+          <img class="mythumbnail" src="<%=smThumbnail%>">
+        </td>
+        <td><%=last%></td>
+        <td><%=first%></td>
+        <td><%=username%></td>
+        <td><%=phone%></td>
+        <td><%=location%></td>
+        <td class="plMin"></td>
+      </tr>
+      <tr class="hiddenrow">
+        <td colspan="7">
+          <div class="divInfo" style="display: none;">
+            <div class="headinfo">
+              <div class="nameandgender">
+                <span class="bigName"><%=first%></span>
+                <img src="<%=genderImg%>" class="gender">
+              </div>
+              <div class="btn-group">
+                <div class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" data-user-id="<%=userId%>" onclick="openEditForm()">Edit <span class="glyphicon glyphicon-pencil"></span>
+                </div>
+                <div class="btn btn-danger btn-sm" onclick="removeUser()" data-user-id="<%=userId%>">Remove <span class="glyphicon glyphicon-trash"></span>
+                </div>
+              </div>
+            </div>
+            <div class="infoBlocks">
+              <div class="infoBlock">
+                <p>
+                  <span>Username </span>
+                  <span class="notBold"><%=username%></span>
+                </p>
+                <p>
+                  <span>Registered </span>
+                  <span class="notBold"><%=registered%></span>
+                </p>
+                <p>
+                  <span>Email </span>
+                  <span class="notBold"><%=email%></span>
+                </p>
+              </div>
+              <div class="infoBlock">
+                <p>
+                  <span>Address </span>
+                  <span class="notBold"><%=address%></span>
+                </p>
+                <p>
+                  <span>City </span>
+                  <span class="notBold"><%=city%></span>
+                </p>
+                <p>
+                  <span>Zip Code </span>
+                  <span class="notBold"><%=zipcode%></span>
+                </p>
+              </div>
+              <div class="infoBlock">
+                <p>
+                  <span>Birthday </span>
+                  <span class="notBold"><%=birthday%></span>
+                </p>
+                <p>
+                  <span>Phone </span>
+                  <span class="notBold"><%=phone%></span>
+                </p>
+                <p>
+                  <span>Cell </span>
+                  <span class="notBold"><%=cell%></span>
+                </p>
+              </div>
+              <div class="infoBlock">
+                <img class="mythumbnail" src="<%=lrgThumbnail%>">
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script> -->
 
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="./script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js"></script>
+    <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
+    <!-- <script src="./chart.js"></script> -->
 </body>
 
 </html>

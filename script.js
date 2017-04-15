@@ -1,13 +1,18 @@
 var arr;
+// console.log(arr);
 
 $(document).ready(function() {
     arr = getFromLocStor();
-    innerResult(arr);
+    console.log(arr);
+      arr.forEach(function(item, i) {
+        // console.log(arr[i]);
+        insertTemplate(arr[i]);
+      })
 
 });
 
 function getFromLocStor() {
-    var returnObj = JSON.parse(localStorage.getItem("user"));
+    var returnObj = JSON.parse(localStorage.getItem("allUsers"));
 
     if (returnObj == null || returnObj.length === 0) {
         var divAlert = document.createElement('div');
@@ -25,166 +30,56 @@ function addUsers() {
         url: 'https://randomuser.me/api/?nat=us&results=1',
         dataType: 'json',
         success: function(data) {
-            console.log(data);
+            // console.log(data);
             $('.alert-info').remove();
-            innerResult(data.results, true);
+            data.results.forEach(function(item, i) {
+              var randomUser = data.results[i];
+              var newUser = {
+                userId: randomUser.id.value,
+                first: _.startCase(randomUser.name.first),
+                last: _.startCase(randomUser.name.last),
+                gender: randomUser.gender,
+                // 'genderImg': './img/woman.png',
+                get genderImg() {
+                  if (this.gender === 'female') {
+                    return './img/woman.png';
+                  }
+                  if (this.gender === 'male') {
+                    return './img/man.png';
+                  }
+                },
+                birthday: changeDate(randomUser.dob),
+                username: randomUser.login.username,
+                email: randomUser.email,
+                location: _.startCase(randomUser.location.state),
+                zipcode: randomUser.location.postcode,
+                city: _.startCase(randomUser.location.city),
+                address: _.startCase(randomUser.location.street),
+                phone: randomUser.phone,
+                cell: randomUser.cell,
+                registered: changeDate(randomUser.registered),
+                smThumbnail: randomUser.picture.thumbnail,
+                lrgThumbnail: randomUser.picture.large
+              }
+              // console.log(newUser);
+              arr.push(newUser);
+              // console.log(arr);
+              insertTemplate(newUser);
+            });
         }
     });
 }
 
 function save() {
     var userObj = JSON.stringify(arr);
-    localStorage.setItem("user", userObj);
+    localStorage.setItem("allUsers", userObj);
 }
 
-function innerResult(path, addToArr) {
-    path.forEach(function(item, i) {
-        if (addToArr) {
-            arr.push(path[i]);
-            console.log(arr);
-        }
-        // var table = document.getElementById("myTable");
-        // var tbody = document.getElementById('myTbody');
-
-        // var row = tbody.insertRow(-1);
-        // row.className = 'firstrow';
-
-        // row.insertCell(0);
-        // row.insertCell(1);
-        // row.insertCell(2);
-        // row.insertCell(3);
-        // row.insertCell(4);
-        // row.insertCell(5);
-        // row.insertCell(6);
-
-        // var image = document.createElement('img');
-        // image.className = 'avatar';
-        // image.src = path[i].picture.thumbnail;
-        // row.cells[0].appendChild(image);
-        // row.cells[1].innerHTML = capitalizeFirstLetter(path[i].name.last);
-        // row.cells[2].innerHTML = capitalizeFirstLetter(path[i].name.first);
-        // row.cells[3].innerHTML = path[i].login.username;
-        // row.cells[4].innerHTML = path[i].phone;
-        // row.cells[5].innerHTML = capitalizeFirstLetter(path[i].location.state);
-        // var plusMinusImg = document.createElement('div');
-        // plusMinusImg.className = 'plMin';
-        // plusMinusImg.style.backgroundImage = 'url(./img/plus.png)';
-        // row.cells[6].appendChild(plusMinusImg);
-
-        $('#myTbody').append($('<tr>').addClass('firstrow').attr('onclick', 'hideShow()').append($('<td><td><td><td><td><td><td>')));
-        fillRow('.firstrow:last', path, i);
-
-
-// $('#myTbody').append($('<tr>').addClass('hiddenrow').append($('<td>').attr('colspan', 7)));
-//
-// $('.hiddenrow:last').find('td').eq(0).append($('<div>').addClass('divInfo')
-//   .append($('<div>').addClass('headinfo'))
-//   .append($('<div>').addClass('infoBlocks'))
-// );
-
-
-        var tbody = document.getElementById('myTbody');
-        var row2 = tbody.insertRow(-1);
-        row2.className = 'hiddenrow';
-
-        var cell1n = row2.insertCell(0);
-        cell1n.colSpan = '7';
-        var divInfo = document.createElement('div');
-        divInfo.className = 'divInfo';
-        divInfo.style.display = 'none';
-        cell1n.appendChild(divInfo);
-
-        var divHeadInfo = document.createElement('div');
-        divHeadInfo.className = 'headinfo';
-        divInfo.appendChild(divHeadInfo);
-        var divNameAndGender = document.createElement('div');
-        divNameAndGender.className = 'nameandgender';
-        divHeadInfo.appendChild(divNameAndGender);
-        var spanName = document.createElement('span');
-        spanName.className = "bigName";
-        var genderImg = document.createElement('img');
-        genderImg.src = (function() {
-            if (path[i].gender == 'female') {
-                return './img/woman.png';
-            } else {
-                return './img/man.png'
-            }
-        })();
-        genderImg.className = 'gender';
-        spanName.innerHTML = capitalizeFirstLetter(path[i].name.first);
-        divNameAndGender.appendChild(spanName);
-        divNameAndGender.appendChild(genderImg);
-
-        var divButtonGroup = document.createElement('div');
-        divButtonGroup.className = 'btn-group';
-        divHeadInfo.appendChild(divButtonGroup);
-        var buttonEdit = document.createElement('div');
-        buttonEdit.type = 'button';
-        buttonEdit.className = 'btn btn-primary btn-sm';
-        buttonEdit.setAttribute('data-toggle', 'modal');
-        buttonEdit.setAttribute('data-target', '#myModal');
-        buttonEdit.setAttribute('data-user-id', path[i].id.value);
-        buttonEdit.setAttribute('onclick', 'openEditForm()');
-        buttonEdit.innerHTML = 'Edit <span class="glyphicon glyphicon-pencil"></span>';
-        divButtonGroup.appendChild(buttonEdit);
-
-        var buttonRemove = document.createElement('div');
-        buttonRemove.type = 'button';
-        buttonRemove.className = 'btn btn-danger btn-sm';
-        buttonRemove.setAttribute('onclick', 'removeUser()');
-        buttonRemove.setAttribute('data-user-id', path[i].id.value);
-        buttonRemove.innerHTML = 'Remove <span class="glyphicon glyphicon-trash"></span>';
-        divButtonGroup.appendChild(buttonRemove);
-
-        var divBlocks = document.createElement('div');
-        divBlocks.className = 'infoBlocks';
-        divInfo.appendChild(divBlocks);
-
-        var divFirstBlock = document.createElement('div');
-        divFirstBlock.className = 'infoBlock';
-        divBlocks.appendChild(divFirstBlock);
-
-        fillBlock('Username', divFirstBlock, path[i].login.username);
-        fillBlock('Registered', divFirstBlock, path[i].registered);
-        fillBlock('Email', divFirstBlock, path[i].email);
-
-        var divSecondBlock = document.createElement('div');
-        divSecondBlock.className = 'infoBlock';
-        divBlocks.appendChild(divSecondBlock);
-
-        fillBlock('Address', divSecondBlock, path[i].location.street);
-        fillBlock('City', divSecondBlock, path[i].location.city);
-        fillBlock('Zip Code', divSecondBlock, path[i].location.postcode);
-
-        var divThirdBlock = document.createElement('div');
-        divThirdBlock.className = 'infoBlock';
-        divBlocks.appendChild(divThirdBlock);
-
-        fillBlock('Birthday', divThirdBlock, path[i].dob);
-        fillBlock('Phone', divThirdBlock, path[i].phone);
-        fillBlock('Cell', divThirdBlock, path[i].cell);
-
-        var divFourthBlock = document.createElement('div');
-        divFourthBlock.className = 'infoBlock';
-        divBlocks.appendChild(divFourthBlock);
-        var bigImage = document.createElement('img');
-        bigImage.className = 'mythumbnail';
-        bigImage.src = path[i].picture.large;
-        divFourthBlock.appendChild(bigImage);
-
-    });
-}
-
-
-function fillRow(rowToFill, path, i) {
-  $(rowToFill).find('td')
-    .eq(0).append($('<img>').addClass('mythumbnail').attr('src', path[i].picture.thumbnail)).end()
-    .eq(1).append(capitalizeFirstLetter(path[i].name.last)).end()
-    .eq(2).append(capitalizeFirstLetter(path[i].name.first)).end()
-    .eq(3).append(path[i].login.username).end()
-    .eq(4).append(path[i].phone).end()
-    .eq(5).append(capitalizeFirstLetter(path[i].location.state)).end()
-    .eq(6).addClass('plMin').css('backgroundImage', 'url(./img/plus.png)');
+function insertTemplate(user) {
+  var rowsTemplate = $("#rows-template").html();
+  // console.log(rowsTemplate);
+  // console.log(user);
+  return $("#myTbody").append(_.template(rowsTemplate)(user));
 }
 
 function removeUser() {
@@ -193,7 +88,7 @@ function removeUser() {
     var prevTrToDel = $(trToDelete[0]).prev('.firstrow');
     var userId = $(button).data('userId');
     var objectToDel = arr.forEach(function(item, i) {
-        if (arr[i].id.value === userId) {
+        if (arr[i].userId === userId) {
             arr.splice(i, 1);
         }
     })
@@ -201,28 +96,28 @@ function removeUser() {
     $(prevTrToDel[0]).remove();
 };
 
-var userId;
+// var userId;
 function openEditForm() {
     var form = document.getElementById('userForm');
     form.reset();
     var button = event.target;
-    userId = $(button).data('userId');
+    var userId = $(button).data('userId');
     var objectToEdit = arr.forEach(function(item, i) {
-        if (arr[i].id.value === userId) {
-            $('#first').val(capitalizeFirstLetter(arr[i].name.first));
-            $('#last').val(capitalizeFirstLetter(arr[i].name.last));
+        if (arr[i].userId === userId) {
+            $('#first').val(arr[i].first);
+            $('#last').val(arr[i].last);
             if (arr[i].gender === 'female') {
                 $(':radio[value=female]').prop('checked', true);
             } else {
                 $(':radio[value=male]').prop('checked', true);
             }
-            $('#birthday').prop('valueAsDate', new Date(arr[i].dob));
-            $('#username').val(arr[i].login.username);
+            $('#birthday').prop('valueAsDate', new Date(arr[i].birthday));
+            $('#username').val(arr[i].username);
             $('#email').val(arr[i].email);
-            $('#location').val(capitalizeFirstLetter(arr[i].location.state));
-            $('#zipcode').val(arr[i].location.postcode);
-            $('#city').val(capitalizeFirstLetter(arr[i].location.city));
-            $('#address').val(capitalizeFirstLetter(arr[i].location.street));
+            $('#location').val(arr[i].location);
+            $('#zipcode').val(arr[i].zipcode);
+            $('#city').val(arr[i].city);
+            $('#address').val(arr[i].address)
             $('#phone').val(arr[i].phone);
             $('#cell').val(arr[i].cell);
             $('#registered').prop('valueAsDate', new Date(arr[i].registered));
@@ -256,9 +151,6 @@ function openEditForm() {
 //     return numMale;
 // };
 
-function capitalizeFirstLetter(someWord) {
-    return someWord.charAt(0).toUpperCase() + someWord.slice(1);
-};
 
 function changeDate(myDate) {
     var someDate = new Date(myDate);
@@ -270,23 +162,6 @@ function changeDate(myDate) {
     return someDate.toLocaleDateString('en-US', options);
 };
 
-function fillBlock(dataName, blockToFill, dataPath) {
-    var createP = document.createElement('p');
-    blockToFill.appendChild(createP);
-    var titleName = document.createElement('span');
-    titleName.innerHTML = dataName + ' ';
-    var datasName = document.createElement('span');
-    datasName.className = 'notBold';
-    if (dataName == 'City') {
-        datasName.innerHTML = capitalizeFirstLetter(dataPath);
-    } else if (dataName == 'Registered' || dataName == 'Birthday') {
-        datasName.innerHTML = changeDate(dataPath);
-    } else {
-        datasName.innerHTML = dataPath;
-    }
-    createP.appendChild(titleName);
-    createP.appendChild(datasName);
-};
 
 function searchBy() {
     $('.divInfo').css('display', 'none');
@@ -325,10 +200,10 @@ function searchBy() {
 };
 
 function hideShow() {
-  var tr = event.currentTarget;
-  var plMin = $(tr).find('.plMin');
-  var divToHide = $(tr).next().find('.divInfo');
-    if (divToHide[0].style.display == 'none') {
+    var tr = event.currentTarget;
+    var plMin = $(tr).find('.plMin');
+    var divToHide = $(tr).next().find('.divInfo');
+      if (divToHide[0].style.display == 'none') {
         $('.divInfo').slideUp();
         $('.plMin').css('backgroundImage', 'url(./img/plus.png)');
         $(divToHide[0]).slideDown();

@@ -207,6 +207,7 @@ span.bigName {
     margin: 0 auto;
     width: 28px;
     height: 28px;
+    background-image: url(./img/plus.png);
     background-repeat: no-repeat;
     background-position: center;
 }
