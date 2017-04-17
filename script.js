@@ -58,7 +58,7 @@ function addUsers() {
                 phone: randomUser.phone,
                 cell: randomUser.cell,
                 registered: changeDate(randomUser.registered),
-                smThumbnail: randomUser.picture.thumbnail,
+                // smThumbnail: randomUser.picture.thumbnail,
                 lrgThumbnail: randomUser.picture.large
               }
               // console.log(newUser);
@@ -87,7 +87,7 @@ function removeUser() {
     var trToDelete = $(button).closest('.hiddenrow');
     var prevTrToDel = $(trToDelete[0]).prev('.firstrow');
     var userId = $(button).data('userId');
-    var objectToDel = arr.forEach(function(item, i) {
+    arr.forEach(function(item, i) {
         if (arr[i].userId === userId) {
             arr.splice(i, 1);
         }
@@ -96,13 +96,14 @@ function removeUser() {
     $(prevTrToDel[0]).remove();
 };
 
-// var userId;
+
 function openEditForm() {
     var form = document.getElementById('userForm');
     form.reset();
     var button = event.target;
     var userId = $(button).data('userId');
-    var objectToEdit = arr.forEach(function(item, i) {
+    console.log(userId);
+    arr.forEach(function(item, i) {
         if (arr[i].userId === userId) {
             $('#first').val(arr[i].first);
             $('#last').val(arr[i].last);
@@ -121,15 +122,46 @@ function openEditForm() {
             $('#phone').val(arr[i].phone);
             $('#cell').val(arr[i].cell);
             $('#registered').prop('valueAsDate', new Date(arr[i].registered));
-
         }
 
     });
-}
+  }
 
-// function editUser() {
-//   console.log(userId);
-// }
+function editUser() {
+  console.log(userId);
+  // var objectToEdit = arr.forEach(function(item, i) {
+  //     if (arr[i].userId === userId) {
+  // var newUser = {
+  //   userId: randomUser.id.value,
+  //   first: _.startCase(randomUser.name.first),
+  //   last: _.startCase(randomUser.name.last),
+  //   gender: randomUser.gender,
+  //   // 'genderImg': './img/woman.png',
+  //   get genderImg() {
+  //     if (this.gender === 'female') {
+  //       return './img/woman.png';
+  //     }
+  //     if (this.gender === 'male') {
+  //       return './img/man.png';
+  //     }
+  //   },
+  //   birthday: changeDate(randomUser.dob),
+  //   username: randomUser.login.username,
+  //   email: randomUser.email,
+  //   location: _.startCase(randomUser.location.state),
+  //   zipcode: randomUser.location.postcode,
+  //   city: _.startCase(randomUser.location.city),
+  //   address: _.startCase(randomUser.location.street),
+  //   phone: randomUser.phone,
+  //   cell: randomUser.cell,
+  //   registered: changeDate(randomUser.registered),
+  //   // smThumbnail: randomUser.picture.thumbnail,
+  //   lrgThumbnail: randomUser.picture.large
+  // }
+  // // console.log(newUser);
+  // arr.push(newUser);
+  //
+}
 
 // function countFemale() {
 //     var numFemale = 0;
