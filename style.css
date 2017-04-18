@@ -129,6 +129,7 @@ th.sortable:hover {
 
 .narrow {
     width: 80px;
+
 }
 
 tr:nth-child(4n-1) {
@@ -158,9 +159,9 @@ td {
     padding-right: 10px;
 }
 
-/*.firstrow td:nth-child(1) {
+.firstrow td:nth-child(1) {
     text-align: center;
-}*/
+}
 
 div.headinfo {
     display: flex;
@@ -185,6 +186,15 @@ span.bigName {
     border-style: solid;
     border-width: medium;
     border-color: white;
+}
+
+.thumbnailInForm {
+    border-radius: 100%;
+    border-style: solid;
+    border-width: medium;
+    border-color: white;
+    background-color: #eee;
+    margin: 5px;
 }
 
 .notBold {
@@ -219,4 +229,11 @@ span.bigName {
 
 .input-group-addon {
     width: 100px;
+}
+
+
+#thumbnailInForm {
+  width: 146px;
+  height: 134px;
+  cursor: pointer;
 }

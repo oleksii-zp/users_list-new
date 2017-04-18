@@ -39,7 +39,6 @@ function addUsers() {
                 first: _.startCase(randomUser.name.first),
                 last: _.startCase(randomUser.name.last),
                 gender: randomUser.gender,
-                // 'genderImg': './img/woman.png',
                 get genderImg() {
                   if (this.gender === 'female') {
                     return './img/woman.png';
@@ -58,7 +57,6 @@ function addUsers() {
                 phone: randomUser.phone,
                 cell: randomUser.cell,
                 registered: changeDate(randomUser.registered),
-                // smThumbnail: randomUser.picture.thumbnail,
                 lrgThumbnail: randomUser.picture.large
               }
               // console.log(newUser);
@@ -96,15 +94,16 @@ function removeUser() {
     $(prevTrToDel[0]).remove();
 };
 
-
+var currentUserId;
 function openEditForm() {
     var form = document.getElementById('userForm');
     form.reset();
+
     var button = event.target;
-    var userId = $(button).data('userId');
-    console.log(userId);
+    currentUserId = $(button).data('userId');
+    console.log(currentUserId);
     arr.forEach(function(item, i) {
-        if (arr[i].userId === userId) {
+        if (arr[i].userId === currentUserId) {
             $('#first').val(arr[i].first);
             $('#last').val(arr[i].last);
             if (arr[i].gender === 'female') {
@@ -118,50 +117,57 @@ function openEditForm() {
             $('#location').val(arr[i].location);
             $('#zipcode').val(arr[i].zipcode);
             $('#city').val(arr[i].city);
-            $('#address').val(arr[i].address)
+            $('#address').val(arr[i].address);
             $('#phone').val(arr[i].phone);
             $('#cell').val(arr[i].cell);
             $('#registered').prop('valueAsDate', new Date(arr[i].registered));
+            $('#thumbnailInForm').attr('src', arr[i].lrgThumbnail);
+            $('#thumbnailInForm').off('click');
+            $('#thumbnailInForm').click(function() {
+              getRandomThumnail(arr[i].gender);
+            })
         }
 
     });
   }
 
 function editUser() {
-  console.log(userId);
-  // var objectToEdit = arr.forEach(function(item, i) {
-  //     if (arr[i].userId === userId) {
-  // var newUser = {
-  //   userId: randomUser.id.value,
-  //   first: _.startCase(randomUser.name.first),
-  //   last: _.startCase(randomUser.name.last),
-  //   gender: randomUser.gender,
-  //   // 'genderImg': './img/woman.png',
-  //   get genderImg() {
-  //     if (this.gender === 'female') {
-  //       return './img/woman.png';
-  //     }
-  //     if (this.gender === 'male') {
-  //       return './img/man.png';
-  //     }
-  //   },
-  //   birthday: changeDate(randomUser.dob),
-  //   username: randomUser.login.username,
-  //   email: randomUser.email,
-  //   location: _.startCase(randomUser.location.state),
-  //   zipcode: randomUser.location.postcode,
-  //   city: _.startCase(randomUser.location.city),
-  //   address: _.startCase(randomUser.location.street),
-  //   phone: randomUser.phone,
-  //   cell: randomUser.cell,
-  //   registered: changeDate(randomUser.registered),
-  //   // smThumbnail: randomUser.picture.thumbnail,
-  //   lrgThumbnail: randomUser.picture.large
-  // }
-  // // console.log(newUser);
-  // arr.push(newUser);
-  //
+  console.log(currentUserId);
+
+  arr.forEach(function(item, i) {
+      if (arr[i].userId === currentUserId) {
+        arr[i] = {
+        userId: currentUserId,
+        first: _.startCase($('#first').val()),
+        last: _.startCase($('#last').val()),
+        gender: $('input[name=gender]:checked').val(),
+        get genderImg() {
+          if (this.gender === 'female') {
+            return './img/woman.png';
+          }
+          if (this.gender === 'male') {
+            return './img/man.png';
+          }
+        },
+        birthday: changeDate($('#birthday').val()),
+        username: $('#username').val(),
+
+        email: $('#email').val(),
+        location: _.startCase($('#location').val()),
+        zipcode: $('#zipcode').val(),
+        city: _.startCase($('#city').val()),
+        address: _.startCase($('#address').val()),
+        phone: $('#phone').val(),
+        cell: $('#cell').val(),
+        registered: changeDate($('#registered').val()),
+        lrgThumbnail: $('#thumbnailInForm').attr('src')
+        }
+              }
+
+  })
+  console.log(arr);
 }
+
 
 // function countFemale() {
 //     var numFemale = 0;
@@ -300,3 +306,17 @@ function sortTable(n) {
         $(thsort[n - 1]).css('backgroundImage', 'url(./img/sortdesc.png)')
     }
 }
+
+
+function getRandomThumnail(gender) {
+  console.log('a');
+    $.ajax({
+        url: 'https://randomuser.me/api/?nat=us&results=1&gender='+gender,
+        dataType: 'json',
+        success: function(data) {
+          console.log(data);
+              $('#thumbnailInForm').attr('src', data.results[0].picture.large);
+              // return data.results[0].picture.large
+              }
+            });
+        }

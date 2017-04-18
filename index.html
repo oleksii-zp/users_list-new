@@ -126,7 +126,8 @@
                         </div>
                         <div class="input-group">
                             <span class="input-group-addon">Thumbnail</span>
-                            <input type="file" class="form-control" id="thumbnail">
+                            <!-- <input type="button" class="form-control" id="formthumbnail"> -->
+                            <img id="thumbnailInForm" class = "form-control">
                         </div>
                         <button type="submit" class="btn btn-primary">Ok <span class="glyphicon glyphicon-ok"></span></button>
                     </form>
@@ -141,7 +142,7 @@
     <script type="text/template" id="rows-template">
       <tr class="firstrow" onclick="hideShow()">
         <td>
-          <img class="mythumbnail" src="<%=smThumbnail%>">
+          <img class="mythumbnail" src="<%=lrgThumbnail%>" width="54" height="54">
         </td>
         <td><%=last%></td>
         <td><%=first%></td>
@@ -209,7 +210,7 @@
                 </p>
               </div>
               <div class="infoBlock">
-                <img class="mythumbnail" src="<%=lrgThumbnail%>">
+                <img class="mythumbnail" src="<%=lrgThumbnail%>" width="134" height="134">
               </div>
             </div>
           </div>
