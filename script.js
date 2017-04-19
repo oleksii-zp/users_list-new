@@ -73,25 +73,40 @@ function save() {
     localStorage.setItem("allUsers", userObj);
 }
 
-function insertTemplate(user) {
+function insertTemplate(user, editTr, tr) {
   var rowsTemplate = $("#rows-template").html();
   // console.log(rowsTemplate);
   // console.log(user);
-  return $("#myTbody").append(_.template(rowsTemplate)(user));
+  if (editTr) {
+
+    return $(_.template(rowsTemplate)(user)).insertBefore(tr);}
+  else {return $("#myTbody").append(_.template(rowsTemplate)(user));}
+}
+
+var userIdToDel;
+function openConfirm() {
+  var button = event.target;
+  userIdToDel = $(button).data('userId');
+  arr.forEach(function(item, i) {
+      if (arr[i].userId === userIdToDel) {
+          $('#confirmMessage').text(arr[i].first + " " + arr[i].last).css('color', '#337ab7');
+      }
+  })
+
 }
 
 function removeUser() {
-    var button = event.target;
+    var button = $("div").find("[data-user-id='" + userIdToDel + "']");
     var trToDelete = $(button).closest('.hiddenrow');
     var prevTrToDel = $(trToDelete[0]).prev('.firstrow');
-    var userId = $(button).data('userId');
     arr.forEach(function(item, i) {
-        if (arr[i].userId === userId) {
+        if (arr[i].userId === userIdToDel) {
             arr.splice(i, 1);
         }
     })
     $(trToDelete[0]).remove();
     $(prevTrToDel[0]).remove();
+    $('#confirmDel').modal('hide');
 };
 
 var currentUserId;
@@ -100,8 +115,9 @@ function openEditForm() {
     form.reset();
 
     var button = event.target;
+    // console.log(button);
     currentUserId = $(button).data('userId');
-    console.log(currentUserId);
+    // console.log(currentUserId);
     arr.forEach(function(item, i) {
         if (arr[i].userId === currentUserId) {
             $('#first').val(arr[i].first);
@@ -124,50 +140,58 @@ function openEditForm() {
             $('#thumbnailInForm').attr('src', arr[i].lrgThumbnail);
             $('#thumbnailInForm').off('click');
             $('#thumbnailInForm').click(function() {
-              getRandomThumnail(arr[i].gender);
+              getRandomThumbnail($('input[name=gender]:checked').val());
             })
         }
 
     });
   }
 
-function editUser() {
-  console.log(currentUserId);
+  function editUser() {
+    // event.preventDefault();
+    console.log(currentUserId);
+    var button = $("div").find("[data-user-id='" + currentUserId + "']");
+    var trToEdit = $(button).closest('.hiddenrow');
+    var prevTrToEdit = $(trToEdit).prev('.firstrow');
+  console.log(trToEdit);
+  console.log(prevTrToEdit);
+    arr.forEach(function(item, i) {
+        if (arr[i].userId === currentUserId) {
+          arr[i] = {
+          userId: currentUserId,
+          first: _.startCase($('#first').val()),
+          last: _.startCase($('#last').val()),
+          gender: $('input[name=gender]:checked').val(),
+          get genderImg() {
+            if (this.gender === 'female') {
+              return './img/woman.png';
+            }
+            if (this.gender === 'male') {
+              return './img/man.png';
+            }
+          },
+          birthday: changeDate($('#birthday').val()),
+          username: $('#username').val(),
 
-  arr.forEach(function(item, i) {
-      if (arr[i].userId === currentUserId) {
-        arr[i] = {
-        userId: currentUserId,
-        first: _.startCase($('#first').val()),
-        last: _.startCase($('#last').val()),
-        gender: $('input[name=gender]:checked').val(),
-        get genderImg() {
-          if (this.gender === 'female') {
-            return './img/woman.png';
-          }
-          if (this.gender === 'male') {
-            return './img/man.png';
-          }
-        },
-        birthday: changeDate($('#birthday').val()),
-        username: $('#username').val(),
+          email: $('#email').val(),
+          location: _.startCase($('#location').val()),
+          zipcode: $('#zipcode').val(),
+          city: _.startCase($('#city').val()),
+          address: _.startCase($('#address').val()),
+          phone: $('#phone').val(),
+          cell: $('#cell').val(),
+          registered: changeDate($('#registered').val()),
+          lrgThumbnail: $('#thumbnailInForm').attr('src')
+        };
+        insertTemplate(arr[i], true, prevTrToEdit);
+        $(trToEdit[0]).remove();
+        $(prevTrToEdit[0]).remove();
+        $('#myModal').modal('hide');
+                }
 
-        email: $('#email').val(),
-        location: _.startCase($('#location').val()),
-        zipcode: $('#zipcode').val(),
-        city: _.startCase($('#city').val()),
-        address: _.startCase($('#address').val()),
-        phone: $('#phone').val(),
-        cell: $('#cell').val(),
-        registered: changeDate($('#registered').val()),
-        lrgThumbnail: $('#thumbnailInForm').attr('src')
-        }
-              }
-
-  })
-  console.log(arr);
-}
-
+    })
+    console.log(arr);
+  }
 
 // function countFemale() {
 //     var numFemale = 0;
@@ -308,7 +332,7 @@ function sortTable(n) {
 }
 
 
-function getRandomThumnail(gender) {
+function getRandomThumbnail(gender) {
   console.log('a');
     $.ajax({
         url: 'https://randomuser.me/api/?nat=us&results=1&gender='+gender,
