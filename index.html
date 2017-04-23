@@ -21,34 +21,33 @@
         <button id="opener">Show chart</button> -->
     <!-- <input type="text" id="search" onkeyup="searchByName()" placeholder="Users search" /> -->
     <!-- </div> -->
+
+
     <div class="btn-group">
-
-
-        <button type="button" class="btn btn-primary" name="button" onclick="addUsers()">Add users <span class="glyphicon glyphicon-user"></span></button>
-        <button type="button" class="btn btn-primary" name="button" onclick="save()">Save <span class="glyphicon glyphicon-floppy-save"></span></button>
+        <button id="button-add-users" type="button" class="btn btn-primary" name="button">Add users <span class="glyphicon glyphicon-user"></span></button>
+        <button id="button-save" type="button" class="btn btn-primary" name="button">Save <span class="glyphicon glyphicon-floppy-save"></span></button>
     </div>
     <div id="tableContainer">
         <table id="myTable">
             <thead>
 
-
                 <tr id="filter">
                     <td class="narrow"></td>
-                    <td><input type="text" class="search" onkeyup="searchBy()" placeholder="Filter by..." /></td>
-                    <td><input type="text" class="search" onkeyup="searchBy()" placeholder="Filter by..." /></td>
-                    <td><input type="text" class="search" onkeyup="searchBy()" placeholder="Filter by..." /></td>
-                    <td><input type="text" class="search" onkeyup="searchBy()" placeholder="Filter by..." /></td>
-                    <td><input type="text" class="search" onkeyup="searchBy()" placeholder="Filter by..." /></td>
+                    <td><input type="text" class="search" placeholder="Filter by..." /></td>
+                    <td><input type="text" class="search" placeholder="Filter by..." /></td>
+                    <td><input type="text" class="search" placeholder="Filter by..." /></td>
+                    <td><input type="text" class="search" placeholder="Filter by..." /></td>
+                    <td><input type="text" class="search" placeholder="Filter by..." /></td>
                     <td class="narrow"></td>
                 </tr>
 
                 <tr class="thead">
                     <th></th>
-                    <th class="sortable" onclick="sortTable(1)">Last</th>
-                    <th class="sortable" onclick="sortTable(2)">First</th>
-                    <th class="sortable" onclick="sortTable(3)">Username</th>
-                    <th class="sortable" onclick="sortTable(4)">Phone</th>
-                    <th class="sortable" onclick="sortTable(5)">Location</th>
+                    <th class="sortable">Last</th>
+                    <th class="sortable">First</th>
+                    <th class="sortable">Username</th>
+                    <th class="sortable">Phone</th>
+                    <th class="sortable">Location</th>
                     <th></th>
                 </tr>
             </thead>
@@ -59,7 +58,6 @@
 
             </tfoot>
         </table>
-
     </div>
 
 
@@ -74,7 +72,7 @@
             <p class="text-center">Are you sure you want to delete <span id = "confirmMessage"></span>?</p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" onclick="removeUser()">Yes <span class="glyphicon glyphicon-ok"></span></button>
+            <button id="button-remove-user" type="button" class="btn btn-primary">Yes <span class="glyphicon glyphicon-ok"></span></button>
             <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
           </div>
         </div>
@@ -89,7 +87,7 @@
                     <h4 class="modal-title">Edit User</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="userForm" onsubmit="editUser(); return false">
+                    <form id="userForm">
                         <div class="input-group">
                             <span class="input-group-addon">First Name</span>
                             <input type="text" class="form-control" id="first">
@@ -157,8 +155,9 @@
 
         </div>
     </div>
+
     <script type="text/template" id="rows-template">
-      <tr class="firstrow" onclick="hideShow()">
+      <tr class="firstrow">
         <td>
           <img class="mythumbnail" src="<%=lrgThumbnail%>" width="54" height="54">
         </td>
@@ -178,9 +177,9 @@
                 <img src="<%=genderImg%>" class="gender">
               </div>
               <div class="btn-group">
-                <div class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" data-user-id="<%=userId%>" onclick="openEditForm()">Edit <span class="glyphicon glyphicon-pencil"></span>
+                <div class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" data-user-id="<%=userId%>">Edit <span class="glyphicon glyphicon-pencil"></span>
                 </div>
-                <div class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmDel" data-user-id="<%=userId%>" onclick="openConfirm()">Remove <span class="glyphicon glyphicon-trash"></span>
+                <div class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmDel" data-user-id="<%=userId%>">Remove <span class="glyphicon glyphicon-trash"></span>
                 </div>
               </div>
             </div>
@@ -235,15 +234,19 @@
         </td>
       </tr>
     </script>
+
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script> -->
 
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="./script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js"></script>
+    <script src="./script.js"></script>
+
     <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
     <!-- <script src="./chart.js"></script> -->
+
 </body>
 
 </html>
