@@ -102,10 +102,10 @@ body {
     margin: 0 auto;
     min-width: 600px;
     table-layout: fixed;
-
 }
 
-tr.thead, #filter {
+tr.thead,
+#filter {
     height: 40px;
 }
 
@@ -113,7 +113,6 @@ th {
     text-align: left;
     font-size: 16px;
 }
-
 
 th.sortable {
     background-image: url(./img/sort.png);
@@ -129,7 +128,6 @@ th.sortable:hover {
 
 .narrow {
     width: 80px;
-
 }
 
 tr:nth-child(4n-1) {
@@ -151,7 +149,6 @@ tr:nth-child(4n+1):hover {
     background-color: #dedddd;
     cursor: pointer;
 }
-
 
 td {
     word-wrap: break-word;
@@ -231,9 +228,22 @@ span.bigName {
     width: 100px;
 }
 
-
 #thumbnailInForm {
-  width: 146px;
-  height: 134px;
-  cursor: pointer;
+    width: 146px;
+    height: 134px;
+    cursor: pointer;
+}
+
+#button-random-user {
+    margin-bottom: 10px;
+}
+
+#birthday-notification span {
+    color: #337ab7;
+}
+
+#button-remove-checked,
+#no-users,
+#button-cancel-remove {
+    display: none;
 }
