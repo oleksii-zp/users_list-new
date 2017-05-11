@@ -64,11 +64,9 @@ $(document).ready(function () {
     var lastUserId;
 
     function addEditUser(e) {
-        // event.preventDefault();
         if (e.isDefaultPrevented()) {
         console.log('Alarm');
   } else {
-    // everything looks good!
   event.preventDefault();
         var formTarget = $('#formModal').prop('dataset');
         if (formTarget.formTarget === 'edit') {
@@ -152,7 +150,7 @@ $(document).ready(function () {
             arr.splice(arr.indexOf(usersToDel[i]), 1);
             $(trToDelete[0]).remove();
             $(prevTrToDel[0]).remove();
-        })
+        });
         cancelRemove();
         $('#confirmDel').modal('hide');
         if (arr.length === 0) {
@@ -216,6 +214,7 @@ $(document).ready(function () {
                     lrgThumbnail: data.results[0].picture.large
                 }
                 fillForm(newUser);
+             $('#userForm').validator('validate');
             }
         });
     };
@@ -240,6 +239,7 @@ $(document).ready(function () {
         $('#cell').val(user.cell);
         $('#registered').prop('valueAsDate', new Date(user.registered));
         $('#thumbnailInForm').attr('src', user.lrgThumbnail);
+        
     }
 
     function createEditObject(user) {

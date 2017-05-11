@@ -242,3 +242,8 @@ span.bigName {
 #button-cancel-remove {
     display: none;
 }
+
+.navbar-default {
+    background-color: transparent;
+    border: none;
+}
