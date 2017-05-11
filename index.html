@@ -107,63 +107,108 @@
           <h4 id="modal-title" class="modal-title"></h4>
         </div>
         <div class="modal-body">
-          <form id="userForm">
+          <form id="userForm" data-toggle="validator" role="form">
             <button id="button-random-user" type="button" class="btn btn-primary">Generate random user</button>
-            <div class="input-group">
+             <div class="form-group">
+              <div class="input-group">
               <span class="input-group-addon">First Name</span>
-              <input type="text" class="form-control" id="first">
-            </div>
+              <input type="text" class="form-control" data-error="Please enter First Name." id="first" required>
+              
+             </div>
+    <div class="help-block with-errors"></div>
+  </div>
+             <div class="form-group">
             <div class="input-group">
               <span class="input-group-addon">Last Name</span>
-              <input type="text" class="form-control" id="last">
+              <input type="text" class="form-control" data-error="Please enter Last Name." id="last" required>
             </div>
+             <div class="help-block with-errors"></div>
+</div>
+             <div class="form-group">
+             <div class="radio">
+
             <div class="input-group">
-              <label class="radio-inline"><input type="radio" name="gender" value="male" >Male</label>
-              <label class="radio-inline"><input type="radio" name="gender" value="female">Female</label>
+              <label class="radio-inline"><input type="radio" data-error="Please check Gender" name="gender" value="male" required>Male</label>
+              <label class="radio-inline"><input type="radio" name="gender" value="female" required>Female</label>
             </div>
+             <div class="help-block with-errors"></div>
+             </div>
+            </div>
+             <div class="form-group">
             <div class="input-group">
               <span class="input-group-addon">Birthday</span>
-              <input type="date" class="form-control" id="birthday">
+              <input type="date" class="form-control" data-error="Please enter Date of Birth." id="birthday" required>
             </div>
+             <div class="help-block with-errors"></div>
+</div>
+             <div class="form-group">
             <div class="input-group">
               <span class="input-group-addon">Username</span>
-              <input type="text" class="form-control" id="username">
+              <input type="text" class="form-control" data-error="Please enter Username." id="username" required>
             </div>
+             <div class="help-block with-errors"></div>
+</div>
+             <div class="form-group">
             <div class="input-group">
               <span class="input-group-addon">Email</span>
-              <input type="email" class="form-control" id="email">
+              <input type="email" class="form-control" data-error="Please enter correct Email (example@example)" id="email" required>
             </div>
+             <div class="help-block with-errors"></div>
+</div>
+             <div class="form-group">
             <div class="input-group">
               <span class="input-group-addon">Location</span>
-              <input type="text" class="form-control" id="location">
+              <input type="text" class="form-control" data-error="Please enter Location." id="location" required>
             </div>
+             <div class="help-block with-errors"></div>
+</div>
+             <div class="form-group">
             <div class="input-group">
               <span class="input-group-addon">Zip Code</span>
-              <input type="text" class="form-control" id="zipcode">
+              <input type="text" class="form-control" pattern="^\d{5}$" data-error="Please enter correct Zip Code in format 12345" id="zipcode" required>
             </div>
+             <div class="help-block with-errors"></div>
+</div>
+             <div class="form-group">
             <div class="input-group">
               <span class="input-group-addon">City</span>
-              <input type="text" class="form-control" id="city">
+              <input type="text" class="form-control" data-error="Please enter City." id="city" required>
             </div>
+             <div class="help-block with-errors"></div>
+</div>
+             <div class="form-group">
             <div class="input-group">
               <span class="input-group-addon">Address</span>
-              <input type="text" class="form-control" id="address">
+              <input type="text" class="form-control" data-error="Please enter Address." id="address" required>
             </div>
+             <div class="help-block with-errors"></div>
+</div>
+             <div class="form-group">
             <div class="input-group">
               <span class="input-group-addon">Phone</span>
-              <input type="text" class="form-control" id="phone">
+              <input type="text" class="form-control" pattern="^\(\d{3}\)-\d{3}-\d{4}$" data-error="Please enter Phone in format (XXX)-XXX-XXXX" placeholder="(XXX)-XXX-XXXX" id="phone" required>
             </div>
+             <div class="help-block with-errors"></div>
+</div>
+             <div class="form-group">
             <div class="input-group">
               <span class="input-group-addon">Cell</span>
-              <input type="text" class="form-control" id="cell">
+              <input type="text" class="form-control" pattern="^\(\d{3}\)-\d{3}-\d{4}$" data-error="Please enter Cell in format (XXX)-XXX-XXXX" placeholder="(XXX)-XXX-XXXX" id="cell" required>
             </div>
+             <div class="help-block with-errors"></div>
+</div>
+             <div class="form-group">
             <div class="input-group">
               <span class="input-group-addon">Registered</span>
-              <input type="date" class="form-control" id="registered">
+              <input type="date" class="form-control" data-error="Please enter Date of Registration." id="registered" required>
             </div>
+             <div class="help-block with-errors"></div>
+</div>
+             <div class="form-group">
             <div class="input-group">
               <span class="input-group-addon">Thumbnail</span>
               <img id="thumbnailInForm" class="form-control" data-toggle="tooltip" title="Click to change photo, right click to reset">
+            </div>
             </div>
             <button type="submit" class="btn btn-primary">Ok <span class="glyphicon glyphicon-ok"></span></button>
           </form>
@@ -272,6 +317,7 @@
   <!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
     crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js"></script>
   <script src="./script.js"></script>
 

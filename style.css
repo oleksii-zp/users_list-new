@@ -185,13 +185,8 @@ span.bigName {
     border-color: white;
 }
 
-.thumbnailInForm {
-    border-radius: 100%;
-    border-style: solid;
-    border-width: medium;
-    border-color: white;
-    background-color: #eee;
-    margin: 5px;
+#thumbnailInForm {
+    text-align: center;
 }
 
 .notBold {
