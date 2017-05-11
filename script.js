@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    $('#userForm').validator();
     $('#button-add-newuser').on('click', function () {
         openFormModal('add')
     });
