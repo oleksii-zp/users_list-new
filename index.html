@@ -13,24 +13,23 @@
 </head>
 
 <body>
- <nav class="navbar navbar-default navbar-static-top">
-  <div class="container">
-  <div class="btn-group navbar-left">
-    <button id="button-add-newuser" type="button" class="btn btn-primary navbar-btn" name="button">Add new user <span class="glyphicon glyphicon-user"></span></button>
-    <button id="button-remove-users" type="button" class="btn btn-primary navbar-btn" name="button">Remove users <span class="glyphicon glyphicon-trash"></span></button>
-  </div>
-   <div class="btn-group navbar-left">
-    <button id="button-remove-checked" type="button" class="btn btn-danger navbar-btn" name="button" data-toggle="modal" data-target="#confirmDel">Remove checked <span class="glyphicon glyphicon-trash"></span>
-    <button id ="button-cancel-remove" type="button" class="btn btn-danger navbar-btn" name="button">Cancel <span class="glyphicon glyphicon-remove"></span>
-   </div>
+  <nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="btn-group navbar-left">
+        <button id="button-add-newuser" type="button" class="btn btn-primary navbar-btn" name="button">Add new user <span class="glyphicon glyphicon-user"></span></button>
+        <button id="button-remove-users" type="button" class="btn btn-primary navbar-btn" name="button">Remove users <span class="glyphicon glyphicon-trash"></span></button>
+      </div>
+      <div class="btn-group navbar-left">
+        <button id="button-remove-checked" type="button" class="btn btn-danger navbar-btn" name="button" data-toggle="modal" data-target="#confirmDel">Remove checked <span class="glyphicon glyphicon-trash"></span></button>
+        <button id="button-cancel-remove" type="button" class="btn btn-danger navbar-btn" name="button">Cancel <span class="glyphicon glyphicon-remove"></span></button>
+      </div>
+      <div class="btn-group navbar-right">
+        <button id="button-save" type="button" class="btn btn-primary navbar-btn" name="button">Save <span class="glyphicon glyphicon-floppy-save"></span></button>
+        <button id="notification" type="button" class="btn btn-primary navbar-btn" name="button" data-target="#birthday-reminder">Reminder <span class="glyphicon glyphicon-bell"></span></button>
+      </div>
+    </div>
+  </nav>
 
-    <div class="btn-group navbar-right">
-     <button id="button-save" type="button" class="btn btn-primary navbar-btn" name="button">Save <span class="glyphicon glyphicon-floppy-save"></span></button>
-     <button id="notification" type="button" class="btn btn-primary navbar-btn" name="button" data-target="#birthday-reminder">Reminder <span class="glyphicon glyphicon-bell"></span></button>
-  </div>
-  </div>
- </nav>
- 
 
   <div id="tableContainer">
     <table id="myTable">
@@ -114,24 +113,24 @@
         <div class="modal-body">
           <form id="userForm" role="form">
             <button id="button-random-user" type="button" class="btn btn-primary">Generate random user</button>
-            <div class="form-group">
+            <div class="form-group has-feedback">
               <div class="input-group">
                 <span class="input-group-addon">First Name</span>
                 <input type="text" class="form-control" data-error="Please enter First Name." id="first" required>
-
+                <span class="glyphicon form-control-feedback"></span>
               </div>
               <div class="help-block with-errors"></div>
             </div>
-            <div class="form-group">
+            <div class="form-group has-feedback">
               <div class="input-group">
                 <span class="input-group-addon">Last Name</span>
                 <input type="text" class="form-control" data-error="Please enter Last Name." id="last" required>
+                <span class="glyphicon form-control-feedback"></span>
               </div>
               <div class="help-block with-errors"></div>
             </div>
-            <div class="form-group">
+            <div class="form-group has-feedback">
               <div class="radio">
-
                 <div class="input-group">
                   <label class="radio-inline"><input type="radio" data-error="Please check Gender" name="gender" value="male" required>Male</label>
                   <label class="radio-inline"><input type="radio" name="gender" value="female" required>Female</label>
@@ -139,76 +138,86 @@
                 <div class="help-block with-errors"></div>
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-group has-feedback">
               <div class="input-group">
                 <span class="input-group-addon">Birthday</span>
                 <input type="date" class="form-control" data-error="Please enter Date of Birth." id="birthday" required>
+                <span class="glyphicon form-control-feedback"></span>
               </div>
               <div class="help-block with-errors"></div>
             </div>
-            <div class="form-group">
+            <div class="form-group has-feedback">
               <div class="input-group">
                 <span class="input-group-addon">Username</span>
                 <input type="text" class="form-control" data-error="Please enter Username." id="username" required>
+                <span class="glyphicon form-control-feedback"></span>
               </div>
               <div class="help-block with-errors"></div>
             </div>
-            <div class="form-group">
+            <div class="form-group has-feedback">
               <div class="input-group">
                 <span class="input-group-addon">Email</span>
                 <input type="email" class="form-control" data-error="Please enter correct Email (example@example)" id="email" required>
+                <span class="glyphicon form-control-feedback"></span>
               </div>
               <div class="help-block with-errors"></div>
             </div>
-            <div class="form-group">
+            <div class="form-group has-feedback">
               <div class="input-group">
                 <span class="input-group-addon">Location</span>
                 <input type="text" class="form-control" data-error="Please enter Location." id="location" required>
+                <span class="glyphicon form-control-feedback"></span>
               </div>
               <div class="help-block with-errors"></div>
             </div>
-            <div class="form-group">
+            <div class="form-group has-feedback">
               <div class="input-group">
                 <span class="input-group-addon">Zip Code</span>
                 <input type="text" class="form-control" pattern="^\d{5}$" data-error="Please enter correct Zip Code in format 12345" id="zipcode"
                   required>
+                <span class="glyphicon form-control-feedback"></span>
               </div>
               <div class="help-block with-errors"></div>
             </div>
-            <div class="form-group">
+            <div class="form-group has-feedback">
               <div class="input-group">
                 <span class="input-group-addon">City</span>
                 <input type="text" class="form-control" data-error="Please enter City." id="city" required>
+                <span class="glyphicon form-control-feedback"></span>
               </div>
               <div class="help-block with-errors"></div>
             </div>
-            <div class="form-group">
+            <div class="form-group has-feedback">
               <div class="input-group">
                 <span class="input-group-addon">Address</span>
                 <input type="text" class="form-control" data-error="Please enter Address." id="address" required>
+                <span class="glyphicon form-control-feedback"></span>
               </div>
               <div class="help-block with-errors"></div>
             </div>
-            <div class="form-group">
+            <div class="form-group has-feedback">
               <div class="input-group">
                 <span class="input-group-addon">Phone</span>
                 <input type="text" class="form-control" pattern="^\(\d{3}\)-\d{3}-\d{4}$" data-error="Please enter Phone in format (XXX)-XXX-XXXX"
                   placeholder="(XXX)-XXX-XXXX" id="phone" required>
+                <span class="glyphicon form-control-feedback"></span>
               </div>
               <div class="help-block with-errors"></div>
             </div>
-            <div class="form-group">
+            <div class="form-group has-feedback">
               <div class="input-group">
                 <span class="input-group-addon">Cell</span>
                 <input type="text" class="form-control" pattern="^\(\d{3}\)-\d{3}-\d{4}$" data-error="Please enter Cell in format (XXX)-XXX-XXXX"
                   placeholder="(XXX)-XXX-XXXX" id="cell" required>
+                <span class="glyphicon form-control-feedback"></span>
               </div>
               <div class="help-block with-errors"></div>
             </div>
-            <div class="form-group">
+            <div class="form-group has-feedback">
               <div class="input-group">
                 <span class="input-group-addon">Registered</span>
                 <input type="date" class="form-control" data-error="Please enter Date of Registration." id="registered" required>
+                <span class="glyphicon form-control-feedback"></span>
               </div>
               <div class="help-block with-errors"></div>
             </div>
